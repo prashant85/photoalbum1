@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+ <h3>User albums</h3>
+<p align="centre">
+  <h3>Name:</h3>
+  <h4><%= @user.name %></h4>
+</p>
+
+<p>
+  <h3>Email:</h3>
+  <h4><%= @user.email %></h4>
+</p>
+
+<h3>Albums </h3>
+ <% @user.albums.each do |i| %>
+     <h3> <%= i.name %><br/></h3>
+    <% i.images.each do |j| %>
+      <%= image_tag j.photo.url(:small) %> <br/>
+     <% Tags.where(:image_id => j.id).each do |p| %>
+            <%= p.comment %><br/>
+            <% end %>
+
+         <%=  form_tag ("/tags") do %>
+            <%= label_tag (:comment) %>
+            <%= text_field_tag (:comment) %>
+            <%=  hidden_field_tag(:image_id, "#{j.id}")  %>
+            <%=  hidden_field_tag(:album_id, "#{i.id}")  %>
+            <%=  hidden_field_tag(:user_id, "#{@user.id}")  %>
+            <%=  submit_tag ("commit") %>
+            <% end %>
+        <% end %> <br/>
+
+    <% end %>
+
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

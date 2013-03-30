@@ -1,0 +1,15 @@
+<p class="fields" align="center">
+
+  <%= f.label :name %>
+  <%= f.text_field :name %> <br/>
+  <%= f.label :description %>
+  <%= f.text_field :description %><br/>
+  <%= link_to_remove_fields "remove", f %>
+ <b><%= field_set_tag "Images" do %></b>
+  <%= f.fields_for :images do |builder| %>
+      <%= render "image_fields", :f => builder %>
+  <% end %>
+
+   <p><%= link_to_add_fields "Add More Images", f, :images %></p>
+   <% end %>
+   </p>
